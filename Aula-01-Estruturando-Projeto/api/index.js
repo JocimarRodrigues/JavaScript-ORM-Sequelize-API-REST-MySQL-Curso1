@@ -1,9 +1,3 @@
-# Biblioteca Body Parser
-- Serve para converter as req do body de JSON para JS.
-
-# Criando o servidor e uma rota de teste
-api/index.js
-```js
 const express = require("express");
 const bodyParser = require("body-parser");
 
@@ -20,4 +14,3 @@ app.get("/teste", (req, res) => {
 app.listen(port, () => console.log(`Servidor está rodando na porta ${port}`))
 
 module.exports = app;
-```
