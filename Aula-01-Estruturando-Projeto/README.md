@@ -21,3 +21,25 @@ app.listen(port, () => console.log(`Servidor está rodando na porta ${port}`))
 
 module.exports = app;
 ```
+
+# Tu vai instalar o sequelize-cli path para poder usar uns recursos de linha de comando q o sequelize tem, geralmente para fazer interação com o DB.
+
+# npx sequelize-cli init
+- Isso vai criar um projeto padrão com todas as pastas no padrao MVC, para iniciar um projeto
+
+# Arquivo .sequelizerc
+- É o arquivo de configuração do sequelize
+
+### Tu usou as config do sequelize para indificar um novo caminho de pastas para o sequelize
+.sequelizerc
+```js
+const path = require('path');
+
+module.exports = {
+    'config': path.resolve('./api/config', 'config.json'),
+    'models-path': path.resolve('./api/models'),
+    'seeders-path': path.resolve('./api/seeders'),
+    'migrations-path': path.resolve('./api/migrations'),
+
+}
+```
