@@ -24,3 +24,13 @@
 - Isso vai ser muito bom quando tu der um DROP sem Where. KKKK
 - Coordenar alterações feitas por diferentes pessoas do time nas tabelas do banco.
 - Rastrear (e reverter) alterações feitas no banco para debugar os conflitos e erros.
+
+### Rodando migrações
+- Tu vai usar o comando
+```
+npx sequelize-cli db:migrate
+```
+- Com isso tu vai rodar a migration e criar a tabela no banco
+- Tu pode usar o use para o nome da tabela
+- Depois tu pode usar o show tables, para ver as tabelas
+- Depois tu pode usar o describe nome da tabela, para mostar todos as colunas da tabela.
