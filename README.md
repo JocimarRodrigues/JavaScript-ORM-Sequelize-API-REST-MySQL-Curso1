@@ -6,6 +6,7 @@
 - Singular e Plurar, o Sequelize tenta "pluralizar" os nomes da tabela, leia o artigo => https://cursos.alura.com.br/course/orm-nodejs-api-sequelize-mysql/task/77024
 - Versionando o Banco => https://cursos.alura.com.br/course/orm-nodejs-api-sequelize-mysql/task/77026
 - Para saber mais: Camadas extras no MVC => https://cursos.alura.com.br/course/orm-nodejs-api-sequelize-mysql/task/77007
+- Documentação sobre QUERIES no sequelize => https://sequelize.org/docs/v6/core-concepts/model-querying-basics/
 
 ### Obersvação sobre os vários index.js no projeto
 
