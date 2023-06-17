@@ -59,3 +59,51 @@ app.listen(port, () => console.log(`Servidor está rodando na porta ${port}`));
 module.exports = app;
 
 ```
+
+# Definindo a primeira rota
+
+- Cria um novo arquivo dentro de Routes com o nome pessoasRoute.js
+- Chama o controller de pessoa, PessoaController
+```js
+const { Router } = require("express");
+const PessoaController = require("../controllers/PessoaController.js");
+
+const router = Router();
+
+router.get("/pessoas", PessoaController.pegaTodasAsPessoas);
+
+```
+- Tu instancia o router com o Router, para poder criar a variável e usar os métodos do Router do express
+- Tu cria a rota, no caso uma de get, define o endpoint q tu quer na url, no caso tu usou /pessoas; a rota final ficaria assim http://localhost:3000/pessoas
+- No final tu exentifica a função statica que tu criou no Controller
+- No exemplo tu chamou o pegaTodasAsPessoas que está usando um método get de findAll.
+
+### Importante, Como tu usou o método STATIC tu não precisa instanciar
+
+#### Olhe um exemplo de como tu faria para usar o método do controller se tu não instanciasse ele
+```js
+const { Router } = require("express");
+const PessoaController = require("../controllers/PessoaController.js");
+
+const router = Router();
+
+const pController = new PessoaController // Aqui
+
+router.get("/pessoas", PessoaController.pegaTodasAsPessoas);
+```
+- Tu ia precisar criar essa istancia para poder usar no caso, se tu n usasse o  static.
+
+## Feito todos os passos acima, tu precisa aviar o index.js de routes que tu criou uma nova rota.
+- Tu importa o  pessoasRoute
+- Tu usa um middleware para chamar ele e assim sua rota foi criada.
+
+```js
+const bodyPaser = require("body-parser");
+const pessoas = require("./pessoasRoute.js");
+
+module.exports = (app) => {
+  app.use(bodyPaser.json());
+  app.use(pessoas); // Aqui
+};
+
+```

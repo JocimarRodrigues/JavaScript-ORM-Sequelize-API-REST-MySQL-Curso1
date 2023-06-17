@@ -24,3 +24,4 @@ api/models/index.js é o arquivo que gerencia todos os modelos da pasta models e
 ```
 api/routes/index.js é o ponto de entrada que gerencia os arquivos de rotas, importa os métodos de cada arquivo api/routes/[arquivo] através dos require e chama estes métodos de acordo com a rota acessada pelo usuário.
 ```
+
