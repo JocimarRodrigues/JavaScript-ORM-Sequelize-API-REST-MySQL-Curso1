@@ -7,6 +7,7 @@
 - Versionando o Banco => https://cursos.alura.com.br/course/orm-nodejs-api-sequelize-mysql/task/77026
 - Para saber mais: Camadas extras no MVC => https://cursos.alura.com.br/course/orm-nodejs-api-sequelize-mysql/task/77007
 - Documentação sobre QUERIES no sequelize => https://sequelize.org/docs/v6/core-concepts/model-querying-basics/
+- Documentação Oficial do Sequelize sobre Associations => https://sequelize.org/docs/v6/core-concepts/assocs/
 
 ### Obersvação sobre os vários index.js no projeto
 
