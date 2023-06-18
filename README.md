@@ -9,6 +9,10 @@
 - Documentação sobre QUERIES no sequelize => https://sequelize.org/docs/v6/core-concepts/model-querying-basics/
 - Documentação Oficial do Sequelize sobre Associations => https://sequelize.org/docs/v6/core-concepts/assocs/
 
+### Por que usar o BelongsTo para assosiações
+- https://cursos.alura.com.br/course/orm-nodejs-api-sequelize-mysql/task/77016
+
+
 ### Obersvação sobre os vários index.js no projeto
 
 Como vimos até agora, durante o desenvolvimento do projeto foram criados diversos arquivos index.js:
@@ -26,4 +30,3 @@ api/models/index.js é o arquivo que gerencia todos os modelos da pasta models e
 ```
 api/routes/index.js é o ponto de entrada que gerencia os arquivos de rotas, importa os métodos de cada arquivo api/routes/[arquivo] através dos require e chama estes métodos de acordo com a rota acessada pelo usuário.
 ```
-

@@ -205,3 +205,151 @@ module.exports = (sequelize, DataTypes) => {
 };
 ```
 - Com isso, tu associou a tabela Turmas com Pessoas, fazendo assim a relação das duas TABELAS
+
+# Referenciando as tabelas
+
+#### Tu criou as tabelas e associou elas, mas ainda falta tu relacionar a coluna de uma tabela com a outra, então para fazer isso:
+
+- A tabela vai estar assim
+Models/turmas.js
+```js
+"use strict";
+const { Model } = require("sequelize");
+module.exports = (sequelize, DataTypes) => {
+  class Turmas extends Model {
+
+    static associate(models) {
+      Turmas.hasMany(models.Matriculas, {
+        foreignKey: "turma_id",
+      });
+      Turmas.belongsTo(models.Pessoas);
+      Turmas.belongsTo(models.Niveis);
+    }
+  }
+  Turmas.init(
+    {
+      data_inicio: DataTypes.DATEONLY,
+    },
+    {
+      sequelize,
+      modelName: "Turmas",
+    }
+  );
+  return Turmas;
+};
+
+```
+
+- Para tu fazer a referencia tu vai precisar abrir {} para instanciar o novo objeto, depois do nome da tabela.
+- Depois disso tu vai informar a foreign key dá coluna que tu quer referenciar
+```js
+    static associate(models) {
+      Turmas.hasMany(models.Matriculas, {
+        foreignKey: "turma_id",
+      });
+      Turmas.belongsTo(models.Pessoas, {
+        foreignKey: "docente_id",
+      });
+      Turmas.belongsTo(models.Niveis, {
+        foreignKey: 'nivel_id'
+      });
+    }
+```
+- Assim tu está informando que a tabela Turmas, pertence a tabela Pessoas e a coluna que vai receber o ID de pessoas é a docente_id
+- A mesma coisa está sendo feito para a tabela Niveis, que você está dizendo que a tabela turmas, vai receber uma assosiação pela chave estrangeira 'nivel_id'
+- Tu precisa LEMBRAR que sempre que for fazer as ASSOSIAÇÕES tu precisa fazer ela para todas as TABELAS envolvidas.
+
+## Com isso tu já fez as assosiaçÕes, mas ainda falta criar as colunas nos arquivos de migrations para receber as chaves estangeiras.
+
+#### Para fazer isso, basta ir no arquivo de migration da tabela e adicionar as colunas como propriedades
+Migrations/20230618081425-create-turmas.js
+```js
+'use strict';
+/** @type {import('sequelize-cli').Migration} */
+module.exports = {
+  async up(queryInterface, Sequelize) {
+    await queryInterface.createTable('Turmas', {
+      id: {
+        allowNull: false,
+        autoIncrement: true,
+        primaryKey: true,
+        type: Sequelize.INTEGER
+      },
+      data_inicio: {
+        type: Sequelize.DATEONLY
+      },
+      docente_id: { // Aqui
+        allowNull: false,
+        type: Sequelize.INTEGER,
+        references: {model: 'Pessoas', key: 'id'}
+      },
+      createdAt: {
+        allowNull: false,
+        type: Sequelize.DATE
+      },
+      updatedAt: {
+        allowNull: false,
+        type: Sequelize.DATE
+      }
+    });
+  },
+  async down(queryInterface, Sequelize) {
+    await queryInterface.dropTable('Turmas');
+  }
+};
+```
+- É importante que o nome da propriedade tem que ser o mesmo nome que tu criou nas assosiações
+- Não pode ser nulo
+- Tipo Inteiro
+- References: Tu colocou a referencia da tabela para o Model Pessoas e a chave o ID que tu pega da tabela.
+
+#### Tu faz a mesma coisa para referenciar com outra tabela
+Migrations/20230618081425-create-turmas.js
+```js
+'use strict';
+/** @type {import('sequelize-cli').Migration} */
+module.exports = {
+  async up(queryInterface, Sequelize) {
+    await queryInterface.createTable('Turmas', {
+      id: {
+        allowNull: false,
+        autoIncrement: true,
+        primaryKey: true,
+        type: Sequelize.INTEGER
+      },
+      data_inicio: {
+        type: Sequelize.DATEONLY
+      },
+      docente_id: {
+        allowNull: false,
+        type: Sequelize.INTEGER,
+        references: {model: 'Pessoas', key: 'id'}
+      },
+     nivel_id: {
+        allowNull: false,
+        type: Sequelize.INTEGER,
+        references: {model: 'Niveis', key: 'id'} // Aqui
+      },
+      createdAt: {
+        allowNull: false,
+        type: Sequelize.DATE
+      },
+      updatedAt: {
+        allowNull: false,
+        type: Sequelize.DATE
+      }
+    });
+  },
+  async down(queryInterface, Sequelize) {
+    await queryInterface.dropTable('Turmas');
+  }
+};
+```
+- Tu só muda o modelo de referencia, que no caso tu colocou Niveis
+
+### Feito todos os passos acima, tu pode rodar as migrations
+- Tu usa o comando
+```
+npx sequelize-cli db:migrate
+```
+#### Essa aula é importante se tu tíver dúvidas o link da aula é esse => https://cursos.alura.com.br/course/orm-nodejs-api-sequelize-mysql/task/76905
