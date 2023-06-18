@@ -135,3 +135,37 @@ module.exports = router;
 - Não esquecer de avisar na rota, que ela vai receber um parametro para enviar para o back
 - Para fazer isso tu usa :id
 
+### Deletando um registro
+- Cria o método no controller
+```js
+  static async deletaPessoa(req, res) {
+    const { id } = req.params;
+    try {
+      await database.Pessoas.destroy({ where: { id: Number(id) } });
+      return res.status(200).json({mensage: `id ${id} foi deletado.`})
+    } catch (error) {
+      return res.status(500).json(error.message);
+    }
+  }
+```
+- Tu vai pegar o ID para poder localizar o dado que tu quer deletar
+- Vai usar o método DESTROY para deletar o registro
+- Lembrar sempre do WHERE para informar o lugar do registro que vai ser deeletado
+
+#### Feito os passos acima, basta criar a rota
+ pessoasRoute.js
+ ```js
+const { Router } = require("express");
+const PessoaController = require("../controllers/PessoaController.js");
+
+const router = Router();
+
+router.get("/pessoas", PessoaController.pegaTodasAsPessoas);
+router.get("/pessoas/:id", PessoaController.pegaUmaPessoa);
+router.post("/pessoas", PessoaController.criaPessoa);
+router.put("/pessoas/:id", PessoaController.atualizaPessoa);
+router.delete("/pessoas/:id", PessoaController.deletaPessoa); // Aqui
+
+module.exports = router;
+
+ ```
