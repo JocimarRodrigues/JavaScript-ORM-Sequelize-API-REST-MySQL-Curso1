@@ -353,3 +353,81 @@ module.exports = {
 npx sequelize-cli db:migrate
 ```
 #### Essa aula é importante se tu tíver dúvidas o link da aula é esse => https://cursos.alura.com.br/course/orm-nodejs-api-sequelize-mysql/task/76905
+
+# Populando as tabelas
+- Tu vai popular usando os seeders o cmd é:
+```
+npx sequelize-cli seed:generate --name demo"nome do seed"
+npx sequelize-cli seed:generate --name demo-nivel
+```
+
+### Tu precisa lembrar que os seeders também tem que ser feito na ORDEM das tabelas, seguindo a mesmas regras delas.
+- Isso acontece, porque se tu tentar popular uma tabela que depende da outra, não irá funcionar porque ela não vai ter os dados da 1 tabela que são os dados que ela precisa para funcionar.
+- O Sequelize sempre vai rodar os seeders na ordem da data de criação, por isso é importante tu criar eles em ordem.
+- O Numero que está antes do -demo dos seeders é refente a data de criação dele.
+
+#### Lembrar que isso vai criar um seed vazio e tu vai precisar preencher ele
+Seeders/20230618103244-demo-nivel.js
+```js
+'use strict';
+
+/** @type {import('sequelize-cli').Migration} */
+module.exports = {
+  async up (queryInterface, Sequelize) {
+    /**
+     * Add seed commands here.
+     *
+     * Example:
+     * await queryInterface.bulkInsert('People', [{
+     *   name: 'John Doe',
+     *   isBetaMember: false
+     * }], {});
+    */
+  },
+
+  async down (queryInterface, Sequelize) {
+    /**
+     * Add commands to revert seed here.
+     *
+     * Example:
+     * await queryInterface.bulkDelete('People', null, {});
+     */
+  }
+};
+
+```
+
+#### Ele Preenchido ficará dessa forma
+Seeders/20230618103244-demo-nivel.js
+```js
+module.exports = {
+  up: (queryInterface, Sequelize) => {
+		return queryInterface.bulkInsert('Niveis', [
+			{
+				descr_nivel: 'básico',
+				createdAt: new Date(),
+				updatedAt: new Date()			
+			},
+			{
+				descr_nivel: 'intermediário',
+				createdAt: new Date(),
+				updatedAt: new Date()
+			},
+			{
+				descr_nivel: 'avançado',
+				createdAt: new Date(),
+				updatedAt: new Date()
+			} 
+	], {})
+  },
+
+  down: (queryInterface, Sequelize) => {
+		return queryInterface.bulkDelete('Niveis', null, {})
+  }
+}
+
+```
+## Feito os passos acima, basta rodar os seeders o cmd para isso é
+```
+npx sequelize-cli db:seed:all
+```
