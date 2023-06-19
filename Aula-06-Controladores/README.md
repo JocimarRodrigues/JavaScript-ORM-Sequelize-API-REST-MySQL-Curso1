@@ -79,3 +79,29 @@ module.exports = router;
 //htttp://localhost:300/pessoas/1/matricula/5 GET
 ```
 #### Se tiver dúvidas a aula referente a isso é => https://cursos.alura.com.br/course/orm-nodejs-api-sequelize-mysql/task/76908
+
+# Criando uma Matrícula
+
+- Tu vai refazer os passos acima
+PessoaController.js
+```js
+  static async criaMatricula(req, res) {
+    const { estudanteId } = req.params
+    const novaMatricula = {...req.body, estudante_id: Number(estudanteId)}
+    try {
+      const novaMatriculaCriada = await database.Matriculas.create(novaMatricula);
+      return res.status(200).json(novaMatriculaCriada);
+    } catch (error) {
+      return res.status(500).json(error.message);
+    }
+  }
+```
+- Lembra que tu precisa pegar o estudanteId pelos parametros
+- O difernte aqui é a const novaMatricula
+- Tu usa spread operator para pegar todos os dados do req.body E o estudanteID que tu vai passar como parametros pela URL, note que são dados DIFERENTES, tu vai usar tanto o body quanto o params para fazer isso.
+
+#### Feito os passos acima, não esquece de criar a rota
+pessoasRoute.js
+```js
+router.post("/pessoas/:estudanteId/matricula", PessoaController.criaMatricula);
+```
