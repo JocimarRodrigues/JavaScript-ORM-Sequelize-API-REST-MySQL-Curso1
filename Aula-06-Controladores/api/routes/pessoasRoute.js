@@ -13,5 +13,13 @@ router.get(
   PessoaController.pegaUmaMatricula
 );
 router.post("/pessoas/:estudanteId/matricula", PessoaController.criaMatricula);
+router.put(
+    "/pessoas/:estudanteId/matricula/:matriculaId",
+    PessoaController.atualizaMatricula
+  );
+router.delete(
+    "/pessoas/:estudanteId/matricula/:matriculaId",
+    PessoaController.apagaMatricula
+  );
 
 module.exports = router;
